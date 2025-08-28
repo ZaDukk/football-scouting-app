@@ -2,14 +2,7 @@ import pandas as pd
 
 
 def rank_players(df, key_stats, selected_positions=None):
-    """
-    Rank players based on selected stats and positions.
 
-    df                : DataFrame with per90 and percentile columns
-    key_stats         : list of stats (e.g. ["goals","assists","tackles"])
-    selected_positions: list of positions to include (e.g. ["CB","RB","LB"])
-                        If None, include everyone.
-    """
     pct_cols = [f"{s}_per90_pct" for s in key_stats if f"{s}_per90_pct" in df.columns]
 
     if not pct_cols:
@@ -25,7 +18,7 @@ def rank_players(df, key_stats, selected_positions=None):
         )
         ranking_df = ranking_df[mask]
 
-    # Compute mean percentile score
+
     ranking_df["ranking_score"] = ranking_df[pct_cols].mean(axis=1)
 
     # Sort descending (best players first)

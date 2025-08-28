@@ -1,11 +1,12 @@
 import pandas as pd
 from pathlib import Path
+from unidecode import unidecode
 
 DATA_PATH = Path(r"C:\Users\joshu\Downloads\Everything\Programming\summer project\football-scouting-app\data\database.csv")
 
 
 def load_data():
-    df = pd.read_csv(DATA_PATH, encoding="latin1")
+    df = pd.read_csv(DATA_PATH, encoding="utf-8")
 
     # normalise column names (lowercase, underscores)
     df.columns = (
@@ -16,6 +17,9 @@ def load_data():
         .str.replace("%", "perc")
         .str.replace(r"[^\w\s]", "", regex=True)  # remove brackets/symbols
     )
+
+    #remove accents fromm player names for ease of use
+    df["player"] = df["player"].apply(lambda x: unidecode(str(x)))
 
     return df
 
