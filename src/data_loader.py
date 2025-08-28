@@ -1,7 +1,45 @@
 import pandas as pd
+from pathlib import Path
 
-def hello():
-    print("Football scouting app setup works!")
+DATA_PATH = Path(r"C:\Users\joshu\Downloads\Everything\Programming\summer project\football-scouting-app\data\database.csv")
 
-if __name__ == "__main__":
-    hello()
+
+def load_data():
+    df = pd.read_csv(DATA_PATH, encoding="latin1")
+
+    # normalise column names (lowercase, underscores)
+    df.columns = (
+        df.columns
+        .str.strip()
+        .str.lower()
+        .str.replace(" ", "_")
+        .str.replace("%", "perc")
+        .str.replace(r"[^\w\s]", "", regex=True)  # remove brackets/symbols
+    )
+
+    return df
+
+
+def aggregate_all_stats(df):
+    # Columns we want to keep as identifiers (not summed)
+    non_numeric_cols = ["player", "team", "position", "nation", "age"]
+
+    # Numeric = the rest
+    numeric_cols = df.select_dtypes(include="number").columns
+
+    agg_dict = {col: "sum" for col in numeric_cols if col not in non_numeric_cols}
+
+    # Keep first value for identifiers
+    for col in non_numeric_cols:
+        if col in df.columns:
+            agg_dict[col] = "first"
+
+    season_df = df.groupby(["player", "team"], as_index=False).agg(agg_dict)
+
+    return season_df
+
+
+
+
+
+
