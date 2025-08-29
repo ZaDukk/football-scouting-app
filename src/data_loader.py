@@ -43,6 +43,25 @@ def aggregate_all_stats(df):
     return season_df
 
 
+def normalize_positions(df):
+    """
+    convert comma-separated position strings into clean lists.
+    """
+    df["position_list"] = df["position"].apply(
+        lambda x: [p.strip() for p in str(x).split(",")]
+    )
+    return df
+
+
+def clean_age_column(df):
+
+    # Convert FBref style age '22-123' into just 22
+    if df["age"].dtype == "object":
+        df["age_years"] = df["age"].astype(str).str.split("-").str[0].astype(int)
+    else:
+        df["age_years"] = df["age"]
+    return df
+
 
 
 

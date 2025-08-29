@@ -1,5 +1,4 @@
 import matplotlib.pyplot as plt
-import numpy as np
 from mplsoccer import Radar
 
 def plot_player_radar(player_row, stats, title=None):
