@@ -2,7 +2,7 @@ import pandas as pd
 from pathlib import Path
 from unidecode import unidecode
 
-DATA_PATH = Path(r"C:\Users\joshu\Downloads\Everything\Programming\summer project\football-scouting-app\data\database.csv")
+DATA_PATH = Path(r"data\database.csv")
 
 
 def load_data():
