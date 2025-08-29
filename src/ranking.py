@@ -1,6 +1,3 @@
-import pandas as pd
-
-
 def rank_players(df, key_stats, selected_positions=None, weights=None):
     pct_cols = [f"{s}_per90_pct" for s in key_stats if f"{s}_per90_pct" in df.columns]
 

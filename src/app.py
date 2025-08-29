@@ -1,5 +1,5 @@
 import streamlit as st
-import pandas as pd
+
 from data_loader import load_data, aggregate_all_stats, normalize_positions, clean_age_column
 from features import add_per90_stats, add_percentiles
 from ranking import rank_players
