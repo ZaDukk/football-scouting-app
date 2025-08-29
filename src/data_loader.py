@@ -2,7 +2,8 @@ import pandas as pd
 from pathlib import Path
 from unidecode import unidecode
 
-DATA_PATH = Path(r"data\database.csv")
+ROOT = Path(__file__).resolve().parent.parent
+DATA_PATH = ROOT / "data" / "database.csv"
 
 
 def load_data():
